@@ -75,7 +75,6 @@ var wordGuessGame = {
         var n = d.toLocaleTimeString();
 
         console.log("New Game: " + n)
-        console.log("-------------")
 
         randSeed = Math.floor(wordBank.length * Math.random());
         this.word = wordBank[randSeed];
@@ -90,7 +89,7 @@ var wordGuessGame = {
 
         }
         writeAnswer(wordGuessGame.guessedString);
-        console.log(wordGuessGame.guessedString);
+       // console.log(wordGuessGame.guessedString);
 
 
         scoreDisp.textContent = this.Wins;
@@ -102,8 +101,13 @@ var wordGuessGame = {
     },
     youWin: function () {
         audio.play();
+        wordGuessGame.Wins++
+        scoreDisplay.textContent = wordGuessGame.Wins;
+
         myImg.src ="assets/images/"+imgBank[randSeed];
         funfactDisp.textContent = factBank[randSeed];
+        wordGuessGame.newGame();
+
     }
 
 };
@@ -112,7 +116,7 @@ var wordGuessGame = {
 
 document.onkeydown = function (event) {
 
-    if (event.key==="1") wordGuessGame.youWin(); 
+    if (event.key==="/") wordGuessGame.youWin(); 
     
     var muhGuess = event.key.toLocaleLowerCase();
     
@@ -142,10 +146,8 @@ document.onkeydown = function (event) {
         }
 
         if (wordGuessGame.guessedString.join("") === wordGuessGame.word) {
-            wordGuessGame.Wins++
-            scoreDisplay.textContent = wordGuessGame.Wins;
+          
             wordGuessGame.youWin();
-            wordGuessGame.newGame();
         }
     }
 
