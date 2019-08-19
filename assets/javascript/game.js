@@ -1,6 +1,6 @@
 var wordBank = ["Saturn"," Mars","Earth","Curiosity","Artemis","Apollo","Flare","Hubble","Rover","Moon"];
 
-var randSeed = Math.floor(wordBank.length*Math.random());
+
 
 var wordDisplay = document.getElementById("headerDisp");
 var wordDisplay = document.getElementById("wordDisp");
@@ -9,8 +9,8 @@ var wordDisplay = document.getElementById("guessdDisp");
 var wordDisplay = document.getElementById("scoreDisp");
 
 var wordGuessGame= {
-    word: "",
-    boolBois: [],
+    word: "  ",
+    guessedString: "  ",
     Wins: 0,
     Guesses: 0,
     guessLetters: [],
@@ -18,15 +18,29 @@ var wordGuessGame= {
     gameStarted:false,
 
     newGame: function() {
+        console.clear();
+        var d = new Date();
+        var n = d.toLocaleTimeString();
+
+        console.log("New Game:" + n)
+        console.log("-------------")
 
         var randSeed = Math.floor(wordBank.length*Math.random());
+        this.word =  wordBank[randSeed];
+
         console.log("Index: " + randSeed);
-        console.log("Word " + wordBank[randSeed]);
+        console.log("Word " + this.word);
 
-         headerDisp.textContent = "Current Word: ";
+        this.Guesses=20;
 
+        //Create guessedString placeholder
+        //this.guessedString=guessedString + repeat(word.length);
+        console.log(this.guessedString)
+        headerDisp.textContent = "Current Word: ";
 
-         this.gameStarted = true;
+        console.log("New Game")
+
+        this.gameStarted = true;
     },
 
 
@@ -34,20 +48,21 @@ var wordGuessGame= {
 
 
 document.onkeydown = function(event) {
+console.log(event.key);
+//Auto Start On Key Press
+if (wordGuessGame.gameStarted===false) wordGuessGame.newGame();
+//force new game
+if (event.key==='`') wordGuessGame.newGame();
 
-    //add auto start on key press
-if (event.key ==='`') {
-    wordGuessGame.newGame();
-}
 
-if ((event.key in word) && ) {
+// if ((event.key in wordGuessGame.word) ) {
+//     console.log('')
+// } else {
     
-} else {
-    
-}
+// }
 
     wordDisplay.textContent = event.key;
-    wordDisplay.textContent = event.key;
+    guessDisp.textContent = wordGuessGame.Guesses;
     wordDisplay.textContent = event.key;
     wordDisplay.textContent = event.key;
 
