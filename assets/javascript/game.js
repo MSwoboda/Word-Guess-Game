@@ -2,11 +2,11 @@ var wordBank = ["saturn"," mars","earth","curiosity","artemis","apollo","flare",
 
 var hideChar= "_";
 
-var wordDisplay = document.getElementById("headerDisp");
+var headerisplay = document.getElementById("headerDisp");
 var wordDisplay = document.getElementById("wordDisp");
-var wordDisplay = document.getElementById("letterDisp");
-var wordDisplay = document.getElementById("guessdDisp");
-var wordDisplay = document.getElementById("scoreDisp");
+var letterDisplay = document.getElementById("letterDisp");
+var guessDisplay = document.getElementById("guessdDisp");
+var scoreDisplay = document.getElementById("scoreDisp");
 
 var wordGuessGame= {
     word: "  ",
@@ -74,7 +74,7 @@ if ((!wordGuessGame.guessLetters.includes(muhGuess)) && (event.keyCode >= 65 && 
 
         if (wordGuessGame.guessedString===wordGuessGame.word) {
             score++
-
+            scoreDisp.textContent = score;
         }
 
     } else {
@@ -94,7 +94,7 @@ if ((!wordGuessGame.guessLetters.includes(muhGuess)) && (event.keyCode >= 65 && 
 // } else {
     
 // }
-    wordDisp.textContent = wordGuessGame.guessedString;
+    //wordDisp.textContent = wordGuessGame.guessedString;
     guessDisp.textContent = wordGuessGame.Guesses;
     wordDisplay.textContent = event.key;
     wordDisplay.textContent = event.key;
