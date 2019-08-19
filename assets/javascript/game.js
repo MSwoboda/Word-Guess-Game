@@ -1,53 +1,12 @@
-var wordBank = ["saturn"," mars","earth","curiosity","artemis","apollo","flare","hubble","rover","moon"];
+var wordBank = ["saturn", "mars", "earth", "curiosity", "artemis", "apollo", "flare", "hubble", "rover", "moon"];
 
-var hideChar= "_";
+var hideChar = "_";
 
 //var headerisplay = document.getElementById("headerDisp");
 var wordDisplay = document.getElementById("wordDisp");
 var letterDisplay = document.getElementById("letterDisp");
 var guessDisplay = document.getElementById("guessdDisp");
 var scoreDisplay = document.getElementById("scoreDisp");
-
-var wordGuessGame= {
-    word: "  ",
-    guessedString: "",
-    Wins: 0,
-    Guesses: 0,
-    guessLetters: [],
-    imageId:"",
-    gameStarted:false,
-
-    newGame: function() {
-        console.clear();
-        // Add New Game to log
-        var d = new Date();
-        var n = d.toLocaleTimeString();
-
-        console.log("New Game: " + n)
-        console.log("-------------")
-
-        var randSeed = Math.floor(wordBank.length*Math.random());
-        this.word =  wordBank[randSeed];
-
-        console.log("Index: " + randSeed);
-        console.log("Word: " + this.word);
-
-        this.guessedString=hideChar.repeat(this.word.length);
-
-        console.log( this.guessedString);
-        this.guessLetters= [];
-        this.Guesses=10 ;
-        scoreDisp.textContent = this.Wins;
-        //Create guessedString placeholder
-        //this.guessedString=guessedString + repeat(word.length);
-        console.log(this.guessedString)
-        headerDisp.textContent = "Current Word: ";
-
-        this.gameStarted = true;
-    },
-
-
-};
 
 function writeLetters(arr) {
 
@@ -56,7 +15,7 @@ function writeLetters(arr) {
     for (let index = 0; index < arr.length; index++) {
         outString += arr[index];
         //Exception for last item
-        if ( !(arr.length-1 ===index)) outString += ",";
+        if (!(arr.length - 1 === index)) outString += ",";
     }
     letterDisp.textContent = outString;
 }
@@ -68,56 +27,108 @@ function writeAnswer(arr) {
     for (let index = 0; index < arr.length; index++) {
         outString += arr[index];
         //Exception for last item
-        if ( !(arr.length-1 ===index)) outString += ",";
+        if (!(arr.length - 1 === index)) outString += " ";
     }
-    letterDisp.textContent = outString;
+    wordDisplay.textContent = outString;
 }
 
 
+var wordGuessGame = {
+    word: "",
+    guessedString: [],
+    Wins: 0,
+    Guesses: 0,
+    guessLetters: [],
+    imageId: "",
+    gameStarted: false,
 
-document.onkeydown = function(event) {
-//TODO: replace all event.key with  tolowerCase 
-var muhGuess=event.key.toLocaleLowerCase();
+    newGame: function () {
+        console.clear();
+        // Add New Game to log
+        var d = new Date();
+        var n = d.toLocaleTimeString();
 
-//console.log(event.key);
-//Auto Start On Key Press OR Force start
-if (muhGuess==='`' || wordGuessGame.gameStarted===false) wordGuessGame.newGame();
+        console.log("New Game: " + n)
+        console.log("-------------")
 
-if ((!wordGuessGame.guessLetters.includes(muhGuess)) && (event.keyCode >= 65 && event.keyCode <= 90)) {
-    
+        var randSeed = Math.floor(wordBank.length * Math.random());
+        this.word = wordBank[randSeed];
 
+        console.log("Index: " + randSeed);
+        console.log("Word: " + this.word);
 
-    if (wordGuessGame.word.includes(muhGuess)) {
-        
-        wordGuessGame.guessedString[wordGuessGame.word.indexOf(muhGuess)] = muhGuess;
+        //Initialize array with 
 
+        this.guessedString = [];
+        for (let index = 0; index < this.word.length; index++) {
+            this.guessedString[index] = "_";
+
+        }
+        writeAnswer(wordGuessGame.guessedString);
         console.log(wordGuessGame.guessedString);
 
+        this.guessLetters = [];
+        this.Guesses = 10;
 
-        if (wordGuessGame.guessedString===wordGuessGame.word) {
-            score++
-            scoreDisplay.textContent = score;
-        }
+        scoreDisp.textContent = this.Wins;
+        //Create guessedString placeholder
+        //this.guessedString=guessedString + repeat(word.length);
+        console.log(this.guessedString)
+        headerDisp.textContent = "Current Word: ";
 
-    } else {
-        wordGuessGame.guessLetters.push(muhGuess)
-        writeLetters(wordGuessGame.guessLetters);
-        wordGuessGame.Guesses--;
-        if (wordGuessGame.Guesses<=0) wordGuessGame.newGame();
-
+        this.gameStarted = true;
+    },
+    youWin: function () {
+        
     }
 
+};
 
-} 
 
-// if ((event.key in wordGuessGame.word) ) {
-//     console.log('')
-// } else {
-    
-// }
+
+document.onkeydown = function (event) {
+
+    var muhGuess = event.key.toLocaleLowerCase();
+
+    //console.log(event.key);
+    //Auto Start On Key Press OR Force start
+    if (muhGuess === '`' || wordGuessGame.gameStarted === false) wordGuessGame.newGame();
+
+    if ((!wordGuessGame.guessLetters.includes(muhGuess)) && (event.keyCode >= 65 && event.keyCode <= 90)) {
+
+
+        if (wordGuessGame.word.includes(muhGuess)) {
+
+            for (var i = 0; i < wordGuessGame.word.length; i++) {
+                if (wordGuessGame.word[i] === muhGuess) wordGuessGame.guessedString[i] = wordGuessGame.word[i];
+            }
+
+            //format outstring
+            writeAnswer(wordGuessGame.guessedString);
+           
+
+        } else {
+            wordGuessGame.guessLetters.push(muhGuess)
+            writeLetters(wordGuessGame.guessLetters);
+            wordGuessGame.Guesses--;
+            if (wordGuessGame.Guesses <= 0) wordGuessGame.newGame();
+
+        }
+
+        if (wordGuessGame.guessedString.join("") === wordGuessGame.word) {
+            wordGuessGame.Wins++
+            scoreDisplay.textContent = wordGuessGame.Wins;
+            
+            wordGuessGame.newGame();
+        }
+    }
+
+    // if ((event.key in wordGuessGame.word) ) {
+    //     console.log('')
+    // } else {
+
+    // }
     //wordDisp.textContent = wordGuessGame.guessedString;
     guessDisp.textContent = wordGuessGame.Guesses;
-    wordDisplay.textContent = event.key;
-    wordDisplay.textContent = event.key;
 
 };
