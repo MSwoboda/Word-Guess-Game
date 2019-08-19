@@ -2,7 +2,7 @@ var wordBank = ["saturn"," mars","earth","curiosity","artemis","apollo","flare",
 
 var hideChar= "_";
 
-var headerisplay = document.getElementById("headerDisp");
+//var headerisplay = document.getElementById("headerDisp");
 var wordDisplay = document.getElementById("wordDisp");
 var letterDisplay = document.getElementById("letterDisp");
 var guessDisplay = document.getElementById("guessdDisp");
@@ -37,7 +37,7 @@ var wordGuessGame= {
         console.log( this.guessedString);
         this.guessLetters= [];
         this.Guesses=10 ;
-
+        scoreDisp.textContent = this.Wins;
         //Create guessedString placeholder
         //this.guessedString=guessedString + repeat(word.length);
         console.log(this.guessedString)
@@ -49,9 +49,32 @@ var wordGuessGame= {
 
 };
 
-function writeLetters(params) {
-    
+function writeLetters(arr) {
+
+    var outString = "";
+
+    for (let index = 0; index < arr.length; index++) {
+        outString += arr[index];
+        //Exception for last item
+        if ( !(arr.length-1 ===index)) outString += ",";
+    }
+    letterDisp.textContent = outString;
 }
+
+function writeAnswer(arr) {
+
+    var outString = "";
+
+    for (let index = 0; index < arr.length; index++) {
+        outString += arr[index];
+        //Exception for last item
+        if ( !(arr.length-1 ===index)) outString += ",";
+    }
+    letterDisp.textContent = outString;
+}
+
+
+
 document.onkeydown = function(event) {
 //TODO: replace all event.key with  tolowerCase 
 var muhGuess=event.key.toLocaleLowerCase();
@@ -66,21 +89,19 @@ if ((!wordGuessGame.guessLetters.includes(muhGuess)) && (event.keyCode >= 65 && 
 
     if (wordGuessGame.word.includes(muhGuess)) {
         
-        wordGuessGame.guessedString[wordGuessGame.word.indexOf(muhGuess)]= muhGuess;
+        wordGuessGame.guessedString[wordGuessGame.word.indexOf(muhGuess)] = muhGuess;
 
-        console.log(wordGuessGame.word.indexOf(muhGuess));
-        console.log("yoh queen");
+        console.log(wordGuessGame.guessedString);
 
 
         if (wordGuessGame.guessedString===wordGuessGame.word) {
             score++
-            scoreDisp.textContent = score;
+            scoreDisplay.textContent = score;
         }
 
     } else {
         wordGuessGame.guessLetters.push(muhGuess)
-
-
+        writeLetters(wordGuessGame.guessLetters);
         wordGuessGame.Guesses--;
         if (wordGuessGame.Guesses<=0) wordGuessGame.newGame();
 
