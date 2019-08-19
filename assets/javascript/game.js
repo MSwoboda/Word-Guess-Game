@@ -44,6 +44,14 @@ var wordGuessGame = {
 
     newGame: function () {
         console.clear();
+        //Clear old vars
+        this.guessLetters=[];
+        this.guessedString = [];
+        //Reset Guesses
+        this.Guesses = 10;
+        //Start New Game
+        this.gameStarted = true;
+
         // Add New Game to log
         var d = new Date();
         var n = d.toLocaleTimeString();
@@ -54,12 +62,11 @@ var wordGuessGame = {
         var randSeed = Math.floor(wordBank.length * Math.random());
         this.word = wordBank[randSeed];
 
-        console.log("Index: " + randSeed);
-        console.log("Word: " + this.word);
+       // console.log("Index: " + randSeed);
+       // console.log("Word: " + this.word);
 
         //Initialize array with 
 
-        this.guessedString = [];
         for (let index = 0; index < this.word.length; index++) {
             this.guessedString[index] = "_";
 
@@ -67,8 +74,6 @@ var wordGuessGame = {
         writeAnswer(wordGuessGame.guessedString);
         console.log(wordGuessGame.guessedString);
 
-        this.guessLetters = [];
-        this.Guesses = 10;
 
         scoreDisp.textContent = this.Wins;
         //Create guessedString placeholder
@@ -76,7 +81,6 @@ var wordGuessGame = {
         console.log(this.guessedString)
         headerDisp.textContent = "Current Word: ";
 
-        this.gameStarted = true;
     },
     youWin: function () {
         
