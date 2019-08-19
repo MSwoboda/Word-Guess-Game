@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Rock Paper Scissors Part 1</title>
+</head>
+
+<body>
+
+    <div>
+        <h2><span id="score"><strong>Press R, P, or S to start the game.</strong></span></h2>
+
+        <h2>You chose: <span id="userGuess"><strong> </strong></span></h2>
+        <h2>Computer chose: <span id="computerGuess"><strong> </strong></span></h2>
+        <h2><span id="whowon"><strong>who won?  </strong></span></h2>
+    </div>
+
+    <script type="text/javascript">
+        // Whenever a key is pressed, alert "pressed a button".
+
+        var scoreComputer = 0;
+        var scoreUser = 0;
+        var score = 0;
+        var whodunnit = "User";
+
+        var choices = ["r", "p", "s"];
+
+        var computerText = document.getElementById("computerGuess");
+        var userText = document.getElementById("userGuess");
+        var scoreText = document.getElementById("score");
+        var whodunnitText = document.getElementById("whowon");
+
+        document.onkeydown = function(event) {
+
+
+            userText.textContent = event.key;
+            userGuess = event.key;
+
+            // Randomly chooses a choice from the options array. This is the Computer's guess.
+            var computerGuess = choices[Math.floor(Math.random() * choices.length)];
+            computerText.textContent = computerGuess;
+
+            if (computerGuess == userGuess) {
+                whodunnitText.textContent = "It's a tie"
+            } else {
+                if (computerGuess === "r" && userGuess === "s") {
+                    score--;
+                    whodunnit = "computer"
+                } else if (computerGuess === "r" && userGuess === "p") {
+                    score++;
+                } else if (computerGuess === "s" && userGuess === "p") {
+                    score--;
+                    whodunnit = "computer"
+                } else if (computerGuess === "s" && userGuess === "r") {
+                    score++;
+                } else if (computerGuess === "p" && userGuess === "s") {
+                    score++;
+                } else if (computerGuess === "p" && userGuess === "r") {
+                    score--;
+                    whodunnit = "computer"
+
+                } else {
+
+                }
+                whodunnitText.textContent = whodunnit + " won";
+
+            }
+            scoreText.textContent = "Score: " + score;
+
+        };
+    </script>
+
+</body>
+
+</html>
