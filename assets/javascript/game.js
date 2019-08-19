@@ -2,32 +2,53 @@ var wordBank = ["Saturn"," Mars","Earth","Curiosity","Artemis","Apollo","Flare",
 
 var randSeed = Math.floor(wordBank.length*Math.random());
 
+var wordDisplay = document.getElementById("headerDisp");
+var wordDisplay = document.getElementById("wordDisp");
+var wordDisplay = document.getElementById("letterDisp");
+var wordDisplay = document.getElementById("guessdDisp");
+var wordDisplay = document.getElementById("scoreDisp");
 
-var wordGuessObject= {
-    word: "Honda",
-    model: "Fit",
-    color: "Blue Raspberry",
-    mileage: 3000,
-    isWorking: true,
+var wordGuessGame= {
+    word: "",
+    boolBois: [],
+    Wins: 0,
+    Guesses: 0,
+    guessLetters: [],
+    imageId:"",
+    gameStarted:false,
 
-    driveAroundWorld: function() {
+    newGame: function() {
 
-        console.log("Old Mileage: " + this.mileage);
+        var randSeed = Math.floor(wordBank.length*Math.random());
+        console.log("Index: " + randSeed);
+        console.log("Word " + wordBank[randSeed]);
 
-        this.mileage = this.mileage + 24000;
+         headerDisp.textContent = "Current Word: ";
 
-        console.log("New Mileage: " + this.mileage);
-        console.log("Car needs a tuneup!");
 
-        this.isWorking = false;
+         this.gameStarted = true;
     },
 
-    getTuneUp: function() {
-        console.log("Car is ready to go!");
-        this.isWorking = true;
-    },
 
-    honk: function() {
-        console.log("Honk! Honk!");
-    }
+};
+
+
+document.onkeydown = function(event) {
+
+    //add auto start on key press
+if (event.key ==='`') {
+    wordGuessGame.newGame();
+}
+
+if ((event.key in word) && ) {
+    
+} else {
+    
+}
+
+    wordDisplay.textContent = event.key;
+    wordDisplay.textContent = event.key;
+    wordDisplay.textContent = event.key;
+    wordDisplay.textContent = event.key;
+
 };
