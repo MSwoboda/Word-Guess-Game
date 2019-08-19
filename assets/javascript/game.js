@@ -22,7 +22,7 @@ var wordGuessGame= {
         var d = new Date();
         var n = d.toLocaleTimeString();
 
-        console.log("New Game:" + n)
+        console.log("New Game: " + n)
         console.log("-------------")
 
         var randSeed = Math.floor(wordBank.length*Math.random());
@@ -31,14 +31,13 @@ var wordGuessGame= {
         console.log("Index: " + randSeed);
         console.log("Word " + this.word);
 
-        this.Guesses=20;
+        this.guessLetters= [];
+        this.Guesses=10;
 
         //Create guessedString placeholder
         //this.guessedString=guessedString + repeat(word.length);
         console.log(this.guessedString)
         headerDisp.textContent = "Current Word: ";
-
-        console.log("New Game")
 
         this.gameStarted = true;
     },
@@ -48,12 +47,29 @@ var wordGuessGame= {
 
 
 document.onkeydown = function(event) {
+//TODO: replace all event.key with  tolowerCase 
+var muhGuess=event.key.toLocaleLowerCase();
 console.log(event.key);
-//Auto Start On Key Press
-if (wordGuessGame.gameStarted===false) wordGuessGame.newGame();
-//force new game
-if (event.key==='`') wordGuessGame.newGame();
+//Auto Start On Key Press OR Force start
+if (muhGuess==='`' || wordGuessGame.gameStarted===false) wordGuessGame.newGame();
 
+if ((!wordGuessGame.guessLetters.includes(event.key.toLocaleLowerCase())) && (event.keyCode >= 65 && event.keyCode <= 90)) {
+    
+    if (wordGuessGame.word.includes(event.key.toLocaleLowerCase())) {
+        console.log("YAS QUEEN");
+    } else {
+        wordGuessGame.guessLetters.push(event.key)
+        wordGuessGame.Guesses--;
+        if (wordGuessGame.Guesses<=0) wordGuessGame.newGame();
+
+    }
+
+   
+
+
+
+
+} 
 
 // if ((event.key in wordGuessGame.word) ) {
 //     console.log('')
